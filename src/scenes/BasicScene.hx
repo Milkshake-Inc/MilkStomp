@@ -1,6 +1,6 @@
 package scenes;
 
-import components.EntityComponent;
+import components.entity.EntityComponent;
 import differ.Collision;
 import milkshake.core.Graphics;
 import milkshake.game.scene.camera.CameraPresets;
@@ -11,13 +11,13 @@ import milkshake.game.tile.TileMapCollision;
 import milkshake.game.tile.TileMapData;
 import milkshake.utils.Color;
 import pixi.BaseTexture;
-
+import pixi.Rectangle;
 
 class BasicScene extends Scene
 {
 	var entityComponent:EntityComponent;		
 	var tilemapCollision(default, null):TileMapCollision;
-
+	
 	var graphics:Graphics;
 
 	public function new()
@@ -30,6 +30,7 @@ class BasicScene extends Scene
 		super.create();
 
 		var tileMapData = TileMapData.fromCSV(CompileTime.readFile("assets/tilemaps/main.csv"));
+		var tilemap = new TileMap(tileMapData, new BoltTileMapRenderer(BaseTexture.fromImage("assets/tilesheets/main.png"), 64, true, false));
 
 		addNode(new TileMap(tileMapData, new BoltTileMapRenderer(BaseTexture.fromImage("assets/tilesheets/main.png"), 64, true, false)));
 		addNode(tilemapCollision = new TileMapCollision(tileMapData, 64));
@@ -45,13 +46,16 @@ class BasicScene extends Scene
 		super.update(deltaTime);
 
 		debugRender();
-
-		var results = Collision.shapeWithShapes(box.body, cast tilemapCollision.rectangles);
-
-		for(result in results)
+		
+		for(player in entityComponent.players) 
 		{
-			box.body.x += result.separation.x;
-			box.body.y += result.separation.y;
+			var results = Collision.shapeWithShapes(player.body, cast tilemapCollision.rectangles);
+
+			for(result in results)
+			{
+				player.body.x += result.separation.x;
+				player.body.y += result.separation.y;
+			}
 		}
 	}
 
@@ -72,6 +76,6 @@ class BasicScene extends Scene
 			}
 		}
 
-		graphics.graphics.drawRect(box.body.x, box.body.y, 64, 64);
+		for(player in entityComponent.players) graphics.graphics.drawRect(player.body.x, player.body.y, 64, 64);
 	}
 }
