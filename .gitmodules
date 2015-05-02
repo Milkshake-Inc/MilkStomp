@@ -1,0 +1,3 @@
+[submodule "libs/milkshake"]
+	path = libs/milkshake
+	url = https://github.com/lucas-jones/Milkshake.git
