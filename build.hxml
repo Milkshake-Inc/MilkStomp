@@ -7,6 +7,7 @@
 -lib compiletime
 -lib mconsole
 -lib actuate
+-lib differ
 
 -D pixijs
 
