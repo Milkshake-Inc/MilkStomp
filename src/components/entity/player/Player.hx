@@ -14,6 +14,8 @@ class Player extends DisplayObject
 
 	private var asset:Sprite;
 
+	public var isFloored:Bool;
+
 	public function new(assetUrl:String, id:String)
 	{
 		super(id);
@@ -21,7 +23,7 @@ class Player extends DisplayObject
 		asset = Sprite.fromUrl(assetUrl);
 		addNode(asset);
 		
-		body = Polygon.square(0, 0, Globals.PLAYER_HEIGHT, false);
+		body = Polygon.square(100, 0, 64, false);
 		
 		velocity = Vector2.ZERO;
 	}
@@ -56,10 +58,8 @@ class Player extends DisplayObject
 		position.y = body.y;
 	
 		velocity = velocity.add(Vector2.DOWN.multiSingle(Globals.PLAYER_GRAVITY));
-		
 		body.x += velocity.x * deltaTime;
 		body.y += velocity.y * deltaTime;
-		
 		checkPlayerBoundaries();
 
 		super.update(deltaTime);

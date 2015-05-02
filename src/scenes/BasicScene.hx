@@ -35,7 +35,6 @@ class BasicScene extends Scene
 		addNode(tilemapCollision = new TileMapCollision(tileMapData, 64));
 
 		addNode(entityComponent = new EntityComponent());
-
 		// Debug
 		addNode(graphics = new Graphics());
 	}
@@ -48,12 +47,15 @@ class BasicScene extends Scene
 		{
 			var results = Collision.shapeWithShapes(player.body, cast tilemapCollision.rectangles);
 
+			player.isFloored = false;
+
 			for(result in results)
 			{
 				player.body.x += result.separation.x;
 				player.body.y += result.separation.y;
 
 				if(result.separation.y != 0) player.velocity.y = 0;
+				player.isFloored = true;
 			}
 		}
 
