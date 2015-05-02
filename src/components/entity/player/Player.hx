@@ -21,7 +21,7 @@ class Player extends DisplayObject
 		asset = Sprite.fromUrl(assetUrl);
 		addNode(asset);
 		
-		body = Polygon.square(0, 0, height, false);
+		body = Polygon.square(0, 0, Globals.PLAYER_HEIGHT, false);
 		
 		velocity = Vector2.ZERO;
 	}
@@ -51,16 +51,17 @@ class Player extends DisplayObject
 	
 	override public function update(deltaTime:Float):Void
 	{
-		super.update(deltaTime);
-		
-		velocity = velocity.add(Vector2.DOWN.multiSingle(Globals.GRAVITY));
+		//update position to last frame's body position
+		position.x = body.x;
+		position.y = body.y;
+	
+		velocity = velocity.add(Vector2.DOWN.multiSingle(Globals.PLAYER_GRAVITY));
 		
 		body.x += velocity.x * deltaTime;
 		body.y += velocity.y * deltaTime;
 		
 		checkPlayerBoundaries();
-		
-		position.x = body.x;
-		position.y = body.y;
+
+		super.update(deltaTime);
 	}
 }

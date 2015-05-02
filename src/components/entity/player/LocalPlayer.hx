@@ -16,15 +16,15 @@ class LocalPlayer extends Player
 
 	private function handleInput():Void
 	{
+		velocity.x = 0;
 		if(input.isDown(Key.LEFT)) velocity.x = -Globals.PLAYER_LEFT_SPEED;
 		if(input.isDown(Key.RIGHT)) velocity.x = Globals.PLAYER_RIGHT_SPEED;
-		if(input.isEitherDown([Key.RIGHT, Key.SPACE])) velocity.y = -Globals.PLAYER_JUMP_VELOCITY;
+		if(input.isEitherDown([Key.UP, Key.SPACE])) velocity.y = -Globals.PLAYER_JUMP_VELOCITY;
 	}
 
 	override public function update(deltaTime:Float):Void
 	{
 		handleInput();
-		
 		super.update(deltaTime);
 	}
 }

@@ -11,11 +11,10 @@ import milkshake.game.tile.TileMapCollision;
 import milkshake.game.tile.TileMapData;
 import milkshake.utils.Color;
 import pixi.BaseTexture;
-import pixi.Rectangle;
 
 class BasicScene extends Scene
 {
-	var entityComponent:EntityComponent;		
+	var entityComponent:EntityComponent;
 	var tilemapCollision(default, null):TileMapCollision;
 	
 	var graphics:Graphics;
@@ -37,16 +36,14 @@ class BasicScene extends Scene
 
 		addNode(entityComponent = new EntityComponent());
 
-		// Debug		
+		// Debug
 		addNode(graphics = new Graphics());
 	}
 
 	override public function update(deltaTime:Float):Void
 	{
-		
-
 		super.update(deltaTime);
-
+	
 		for(player in entityComponent.players) 
 		{
 			var results = Collision.shapeWithShapes(player.body, cast tilemapCollision.rectangles);
@@ -56,12 +53,11 @@ class BasicScene extends Scene
 				player.body.x += result.separation.x;
 				player.body.y += result.separation.y;
 
-				player.velocity.y = 0;
+				if(result.separation.y != 0) player.velocity.y = 0;
 			}
 		}
 
 		debugRender();
-		
 	}
 
 	function debugRender()
