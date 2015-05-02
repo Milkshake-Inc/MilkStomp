@@ -11,7 +11,7 @@ import milkshake.game.tile.TileMapCollision;
 import milkshake.game.tile.TileMapData;
 import milkshake.utils.Color;
 import pixi.BaseTexture;
-import pixi.Rectangle;
+
 
 class BasicScene extends Scene
 {
@@ -43,13 +43,13 @@ class BasicScene extends Scene
 
 	override public function update(deltaTime:Float):Void
 	{
-		
-
 		super.update(deltaTime);
 
 		for(player in entityComponent.players) 
 		{
 			var results = Collision.shapeWithShapes(player.body, cast tilemapCollision.rectangles);
+
+			player.isFloor = false;
 
 			for(result in results)
 			{
@@ -57,11 +57,11 @@ class BasicScene extends Scene
 				player.body.y += result.separation.y;
 
 				player.velocity.y = 0;
+				player.isFloor = true;
 			}
 		}
 
 		debugRender();
-		
 	}
 
 	function debugRender()

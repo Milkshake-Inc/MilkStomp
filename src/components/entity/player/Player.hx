@@ -14,6 +14,8 @@ class Player extends DisplayObject
 
 	private var asset:Sprite;
 
+	public var isFloor:Bool;
+
 	public function new(assetUrl:String, id:String)
 	{
 		super(id);
@@ -21,7 +23,7 @@ class Player extends DisplayObject
 		asset = Sprite.fromUrl(assetUrl);
 		addNode(asset);
 		
-		body = Polygon.square(0, 0, height, false);
+		body = Polygon.square(100, 0, 64, false);
 		
 		velocity = Vector2.ZERO;
 	}
@@ -29,17 +31,18 @@ class Player extends DisplayObject
 	override public function update(deltaTime:Float):Void
 	{
 		super.update(deltaTime);
-		
+
 		velocity = velocity.add(Vector2.DOWN.multiSingle(Globals.GRAVITY));
 		
 		body.x += velocity.x * deltaTime;
 		body.y += velocity.y * deltaTime;
 		
-		if(body.y > Globals.GAME_HEIGHT) {
-			body.y = -height;
-		}
-		
 		position.x = body.x;
 		position.y = body.y;
+	}
+
+	public function jump()
+	{
+		this.velocity.y = -1;
 	}
 }
