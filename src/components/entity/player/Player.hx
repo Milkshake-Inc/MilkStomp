@@ -26,6 +26,29 @@ class Player extends DisplayObject
 		velocity = Vector2.ZERO;
 	}
 	
+	private function checkPlayerBoundaries():Void
+	{
+		if(body.y > Globals.GAME_HEIGHT)
+		{
+			body.y = -height;
+		}
+
+		if(body.y < -height)
+		{
+			body.y = Globals.GAME_HEIGHT;
+		}
+
+		if(body.x > Globals.GAME_WIDTH)
+		{
+			body.x = -width;
+		}
+
+		if(body.x < -width)
+		{
+			body.x = Globals.GAME_WIDTH;
+		}
+	}
+	
 	override public function update(deltaTime:Float):Void
 	{
 		super.update(deltaTime);
@@ -35,9 +58,7 @@ class Player extends DisplayObject
 		body.x += velocity.x * deltaTime;
 		body.y += velocity.y * deltaTime;
 		
-		if(body.y > Globals.GAME_HEIGHT) {
-			body.y = -height;
-		}
+		checkPlayerBoundaries();
 		
 		position.x = body.x;
 		position.y = body.y;

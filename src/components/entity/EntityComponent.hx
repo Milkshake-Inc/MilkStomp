@@ -2,6 +2,7 @@ package components.entity;
 
 import components.entity.player.LocalPlayer;
 import components.entity.player.Player;
+import milkshake.components.input.Input;
 import milkshake.core.DisplayObject;
 
 class EntityComponent extends DisplayObject
@@ -13,7 +14,7 @@ class EntityComponent extends DisplayObject
 		super("entityComponent");
 		
 		players = [
-			new LocalPlayer()
+			new LocalPlayer(new Input())
 		];
 		
 		for(player in players) addNode(player);
