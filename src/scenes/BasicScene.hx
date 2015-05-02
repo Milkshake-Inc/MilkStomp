@@ -43,10 +43,10 @@ class BasicScene extends Scene
 
 	override public function update(deltaTime:Float):Void
 	{
+		
+
 		super.update(deltaTime);
 
-		debugRender();
-		
 		for(player in entityComponent.players) 
 		{
 			var results = Collision.shapeWithShapes(player.body, cast tilemapCollision.rectangles);
@@ -55,8 +55,13 @@ class BasicScene extends Scene
 			{
 				player.body.x += result.separation.x;
 				player.body.y += result.separation.y;
+
+				player.velocity.y = 0;
 			}
 		}
+
+		debugRender();
+		
 	}
 
 	function debugRender()
