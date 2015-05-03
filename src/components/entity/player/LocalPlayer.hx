@@ -32,6 +32,7 @@ class LocalPlayer extends Player
 	override public function update(deltaTime:Float):Void
 	{
 		handleInput();
+		
 		super.update(deltaTime);
 	}
 }
