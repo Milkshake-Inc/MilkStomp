@@ -2,6 +2,7 @@
 
 -cp libs/milkshake/src
 -cp libs/milkshake/libs
+-cp libs/node
 -cp src
 
 -lib compiletime
