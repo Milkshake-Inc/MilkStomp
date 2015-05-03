@@ -15,8 +15,8 @@ class EntityComponent extends DisplayObject
 		super("entityComponent");
 		
 		players = [
-			new ArrowKeysLocalPlayer(new Input()),
-			new WASDKeysLocalPlayer(new Input())
+			new ArrowKeysLocalPlayer(0, new Input()),
+			new WASDKeysLocalPlayer(3, new Input())
 		];
 		
 		players[1].body.x = 500;

@@ -5,9 +5,9 @@ import milkshake.components.input.Key;
 
 class WASDKeysLocalPlayer extends LocalPlayer
 {
-	public function new(input:Input)
+	public function new(playerIndex:Int, input:Input)
 	{
-		super(input);
+		super(playerIndex, input);
 
 		MOVE_LEFT_KEY = Key.A;
 		MOVE_RIGHT_KEY = Key.D;

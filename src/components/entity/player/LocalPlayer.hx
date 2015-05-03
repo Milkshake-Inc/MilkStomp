@@ -15,9 +15,9 @@ class LocalPlayer extends Player
 
 	
 
-	public function new(input:Input)
+	public function new(playerIndex:Int, input:Input)
 	{
-		super("localPlayer");
+		super(playerIndex, "localPlayer");
 
 		this.input = input;	
 	}

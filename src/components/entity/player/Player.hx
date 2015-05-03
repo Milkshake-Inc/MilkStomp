@@ -26,32 +26,30 @@ class Player extends DisplayObject
 
 	var textureMap:Map<String, Texture>;
 
-	public function new(id:String)
+	public function new(playerIndex:Int, id:String)
 	{
 		super(id);
 
 		var baseTexture = BaseTexture.fromImage("assets/sprites/character.png");
 
-		var playerIndex:Int = Math.round(Math.random() * 4);
-
 		textureMap = new Map();
-		textureMap.set("idle", new Texture(baseTexture, new pixi.Rectangle(0, 32 * playerIndex, 32, 32)));
-		textureMap.set("jump", new Texture(baseTexture, new pixi.Rectangle(32, 32 * playerIndex, 32, 32)));
-		textureMap.set("fall", new Texture(baseTexture, new pixi.Rectangle(32 * 2, 32 * playerIndex, 32, 32)));
-		textureMap.set("stomp", new Texture(baseTexture, new pixi.Rectangle(32 * 3, 32 * playerIndex, 32, 32)));
-		textureMap.set("dead", new Texture(baseTexture, new pixi.Rectangle(32 * 4, 32 * playerIndex, 32, 32)));
+		textureMap.set("idle", new Texture(baseTexture, new pixi.Rectangle(0, 64 * playerIndex, 64, 64)));
+		textureMap.set("jump", new Texture(baseTexture, new pixi.Rectangle(64, 64 * playerIndex, 64, 64)));
+		textureMap.set("fall", new Texture(baseTexture, new pixi.Rectangle(64 * 2, 64 * playerIndex, 64, 64)));
+		textureMap.set("stomp", new Texture(baseTexture, new pixi.Rectangle(64 * 3, 64 * playerIndex, 64, 64)));
+		textureMap.set("dead", new Texture(baseTexture, new pixi.Rectangle(64 * 4, 64 * playerIndex, 64, 64)));
 
 		asset = new Sprite(textureMap.get("idle"));
 		asset.anchor = new Vector2(0.5, 0);
 		// asset.pivot = new Vector2(16, 16);
-		asset.x = 16;
+		asset.x = 32;
 		// asset.y = 16;
 
 		addNode(asset);
 		
-		head = Polygon.rectangle(0, 0, 26, 4, false);
-		body = Polygon.square(0, 0, 32, false);
-		feet = Polygon.rectangle(0, 0, 26, 4, false);
+		head = Polygon.rectangle(0, 0, 58, 20, false);
+		body = Polygon.square(0, 0, 64, false);
+		feet = Polygon.rectangle(0, 0, 58, 20, false);
 		
 		velocity = Vector2.ZERO;
 	}
@@ -87,7 +85,7 @@ class Player extends DisplayObject
 		TweenUtils.tween(this, 0.5, { y: this.y - 100 });
 		haxe.Timer.delay(function()
 		{
-			TweenUtils.tween(this, 3, { y: this.y + 720 });
+			TweenUtils.tween(this, 3, { y: this.y + (1080 + 400 - y) });
 			haxe.Timer.delay(function()
 			{
 				this.isDead = false;
@@ -111,6 +109,8 @@ class Player extends DisplayObject
 			body.y += velocity.y * deltaTime;
 
 			checkPlayerBoundaries();
+
+			velocity.y = milkshake.utils.MathHelper.clamp(velocity.y, -2, 1.5);
 		}
 
 		this.asset.sprite.texture = textureMap.get("idle");
@@ -131,7 +131,7 @@ class Player extends DisplayObject
 		head.y = body.y - 3;
 
 		feet.x = body.x + 3;
-		feet.y = body.y + 32;
+		feet.y = body.y + 64 - 10;
 
 		
 	}

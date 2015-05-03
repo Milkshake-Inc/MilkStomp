@@ -25,7 +25,7 @@ class BasicScene extends Scene
 
 	public function new()
 	{
-		super("BasicScene", [ "assets/tilesheets/main_32.png", "assets/sprites/character.png" ], CameraPresets.DEFAULT, Color.BLUE);
+		super("BasicScene", [ "assets/tilesheets/main.png", "assets/sprites/character.png" ], CameraPresets.DEFAULT, Color.BLUE);
 	}
 
 	override public function create():Void
@@ -34,13 +34,13 @@ class BasicScene extends Scene
 
 		var clear = new Graphics();
 		clear.begin(0x76D3DE);
-		clear.drawRectangle(new pixi.Rectangle(0, 0, 1280, 720));
+		clear.drawRectangle(new pixi.Rectangle(0, 0, 1920, 1080));
 		addNode(clear);
 
 		var tileMapData = TileMapData.fromCSV(CompileTime.readFile("assets/tilemaps/main.csv"));
 
-		addNode(new TileMap(tileMapData, new BoltTileMapRenderer(BaseTexture.fromImage("assets/tilesheets/main_32.png"), 32, false, false)));
-		addNode(tilemapCollision = new TileMapCollision(tileMapData, 32));
+		addNode(new TileMap(tileMapData, new BoltTileMapRenderer(BaseTexture.fromImage("assets/tilesheets/main.png"), 64, false, false)));
+		addNode(tilemapCollision = new TileMapCollision(tileMapData, 64));
 
 		addNode(entityComponent = new EntityComponent());
 		// Debug
