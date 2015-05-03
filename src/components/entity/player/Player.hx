@@ -26,15 +26,15 @@ class Player extends DisplayObject
 		super(id);
 
 		asset = Sprite.fromUrl(assetUrl);
-		asset.pivot = new Vector2(32, 32);
-		asset.x = 32;
-		asset.y = 32;
+		asset.pivot = new Vector2(16, 16);
+		asset.x = 16;
+		asset.y = 16;
 
 		addNode(asset);
 		
-		head = Polygon.rectangle(0, 0, 58, 10, false);
-		body = Polygon.square(0, 0, 64, false);
-		feet = Polygon.rectangle(0, 0, 58, 10, false);
+		head = Polygon.rectangle(0, 0, 26, 4, false);
+		body = Polygon.square(0, 0, 32, false);
+		feet = Polygon.rectangle(0, 0, 26, 4, false);
 		
 		velocity = Vector2.ZERO;
 	}
@@ -105,10 +105,10 @@ class Player extends DisplayObject
 		position.x = body.x;
 		position.y = body.y;
 
-		head.x = body.x + 4;
-		head.y = body.y - 10;
+		head.x = body.x + 3;
+		head.y = body.y - 3;
 
-		feet.x = body.x + 4;
-		feet.y = body.y + 60;
+		feet.x = body.x + 3;
+		feet.y = body.y + 32;
 	}
 }

@@ -25,7 +25,7 @@ class BasicScene extends Scene
 
 	public function new()
 	{
-		super("BasicScene", [ "assets/tilesheets/main.png" ], CameraPresets.DEFAULT, Color.BLUE);
+		super("BasicScene", [ "assets/tilesheets/main_32.png" ], CameraPresets.DEFAULT, Color.BLUE);
 	}
 
 	override public function create():Void
@@ -38,10 +38,9 @@ class BasicScene extends Scene
 		addNode(clear);
 
 		var tileMapData = TileMapData.fromCSV(CompileTime.readFile("assets/tilemaps/main.csv"));
-		var tilemap = new TileMap(tileMapData, new BoltTileMapRenderer(BaseTexture.fromImage("assets/tilesheets/main.png"), 64, true, false));
 
-		addNode(new TileMap(tileMapData, new BoltTileMapRenderer(BaseTexture.fromImage("assets/tilesheets/main.png"), 64, true, false)));
-		addNode(tilemapCollision = new TileMapCollision(tileMapData, 64));
+		addNode(new TileMap(tileMapData, new BoltTileMapRenderer(BaseTexture.fromImage("assets/tilesheets/main_32.png"), 32, false, false)));
+		addNode(tilemapCollision = new TileMapCollision(tileMapData, 32));
 
 		addNode(entityComponent = new EntityComponent());
 		// Debug
@@ -90,7 +89,7 @@ class BasicScene extends Scene
 			}
 		}
 
-		debugRender();
+		// debugRender();
 	}
 
 	function debugRender()
@@ -103,7 +102,7 @@ class BasicScene extends Scene
 		for(player in entityComponent.players) 
 		{
 			if(player.isDead) continue;
-			
+
 			graphics.begin(Color.RED, 0.1, 1, Color.GREEN);
 			drawPolygon(graphics, cast player.body);
 
