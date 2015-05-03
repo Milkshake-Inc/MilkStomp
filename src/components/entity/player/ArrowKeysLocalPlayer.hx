@@ -12,5 +12,6 @@ class ArrowKeysLocalPlayer extends LocalPlayer
 		MOVE_LEFT_KEY = Key.LEFT;
 		MOVE_RIGHT_KEY = Key.RIGHT;
 		MOVE_UP_KEY = Key.UP;
+		MOVE_STOMP_KEY = Key.DOWN;
 	}
 }

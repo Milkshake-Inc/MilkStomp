@@ -25,7 +25,7 @@ class BasicScene extends Scene
 
 	public function new()
 	{
-		super("BasicScene", [ "assets/tilesheets/main_32.png" ], CameraPresets.DEFAULT, Color.BLUE);
+		super("BasicScene", [ "assets/tilesheets/main_32.png", "assets/sprites/character.png" ], CameraPresets.DEFAULT, Color.BLUE);
 	}
 
 	override public function create():Void
@@ -83,6 +83,7 @@ class BasicScene extends Scene
 						if(!playerB.isDead && playerA.velocity.y > 0)
 						{
 							playerB.kill();
+							playerA.velocity.y = -1;
 						}
 					}
 				}

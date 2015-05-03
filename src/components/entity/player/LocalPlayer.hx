@@ -13,11 +13,11 @@ class LocalPlayer extends Player
 	private var MOVE_UP_KEY:Int;
 	private var MOVE_STOMP_KEY:Int;
 
-	var isStomping:Bool = false;
+	
 
 	public function new(input:Input)
 	{
-		super("assets/sprites/player.png", "localPlayer");
+		super("localPlayer");
 
 		this.input = input;	
 	}
@@ -48,6 +48,11 @@ class LocalPlayer extends Player
 		if(!isFloored && !isStomping && input.isDown(MOVE_STOMP_KEY))
 		{
 			velocity.y = 1.5;
+		}
+
+		if(sign != 0)
+		{
+			this.asset.scale.x = sign * -1;
 		}
 
 		if(isStomping && isFloored) isStomping = false;

@@ -6,6 +6,8 @@ import milkshake.math.Vector2;
 import milkshake.core.DisplayObject;
 import milkshake.core.Sprite;
 import milkshake.utils.TweenUtils;
+import pixi.BaseTexture;
+import pixi.Texture;
 
 class Player extends DisplayObject
 {
@@ -20,15 +22,30 @@ class Player extends DisplayObject
 	private var asset:Sprite;
 
 	public var isFloored:Bool;
+	var isStomping:Bool = false;
 
-	public function new(assetUrl:String, id:String)
+	var textureMap:Map<String, Texture>;
+
+	public function new(id:String)
 	{
 		super(id);
 
-		asset = Sprite.fromUrl(assetUrl);
-		asset.pivot = new Vector2(16, 16);
+		var baseTexture = BaseTexture.fromImage("assets/sprites/character.png");
+
+		var playerIndex:Int = Math.round(Math.random() * 4);
+
+		textureMap = new Map();
+		textureMap.set("idle", new Texture(baseTexture, new pixi.Rectangle(0, 32 * playerIndex, 32, 32)));
+		textureMap.set("jump", new Texture(baseTexture, new pixi.Rectangle(32, 32 * playerIndex, 32, 32)));
+		textureMap.set("fall", new Texture(baseTexture, new pixi.Rectangle(32 * 2, 32 * playerIndex, 32, 32)));
+		textureMap.set("stomp", new Texture(baseTexture, new pixi.Rectangle(32 * 3, 32 * playerIndex, 32, 32)));
+		textureMap.set("dead", new Texture(baseTexture, new pixi.Rectangle(32 * 4, 32 * playerIndex, 32, 32)));
+
+		asset = new Sprite(textureMap.get("idle"));
+		asset.anchor = new Vector2(0.5, 0);
+		// asset.pivot = new Vector2(16, 16);
 		asset.x = 16;
-		asset.y = 16;
+		// asset.y = 16;
 
 		addNode(asset);
 		
@@ -64,7 +81,6 @@ class Player extends DisplayObject
 
 	public function kill():Void
 	{
-		trace("KIll");
 		isDead = true;
 
 		TweenUtils.tween(asset, 0.5, { rotation: 3.14 });
@@ -97,6 +113,12 @@ class Player extends DisplayObject
 			checkPlayerBoundaries();
 		}
 
+		this.asset.sprite.texture = textureMap.get("idle");
+		if(velocity.y < Globals.PLAYER_GRAVITY) this.asset.sprite.texture = textureMap.get("jump");
+		if(velocity.y >  Globals.PLAYER_GRAVITY) this.asset.sprite.texture = textureMap.get("fall");
+		if(this.isStomping) this.asset.sprite.texture = textureMap.get("stomp");
+		if(this.isDead) this.asset.sprite.texture = textureMap.get("dead");
+
 		super.update(deltaTime);
 	}
 
@@ -110,5 +132,7 @@ class Player extends DisplayObject
 
 		feet.x = body.x + 3;
 		feet.y = body.y + 32;
+
+		
 	}
 }
