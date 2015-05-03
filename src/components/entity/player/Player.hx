@@ -26,6 +26,10 @@ class Player extends DisplayObject
 		super(id);
 
 		asset = Sprite.fromUrl(assetUrl);
+		asset.pivot = new Vector2(32, 32);
+		asset.x = 32;
+		asset.y = 32;
+
 		addNode(asset);
 		
 		head = Polygon.rectangle(0, 0, 58, 10, false);
@@ -63,6 +67,7 @@ class Player extends DisplayObject
 		trace("KIll");
 		isDead = true;
 
+		TweenUtils.tween(asset, 0.5, { rotation: 3.14 });
 		TweenUtils.tween(this, 0.5, { y: this.y - 100 });
 		haxe.Timer.delay(function()
 		{
@@ -72,6 +77,7 @@ class Player extends DisplayObject
 				this.isDead = false;
 				this.body.x = 100;
 				this.body.y = 0;
+				this.asset.rotation = 0;
 			}, 3000);
 		}, 500);
 	}

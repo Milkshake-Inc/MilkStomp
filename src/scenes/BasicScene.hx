@@ -71,15 +71,13 @@ class BasicScene extends Scene
 			var floorResults = Collision.shapeWithShapes(player.feet, cast tilemapCollision.rectangles);
 			player.isFloored = floorResults.length > 0;
 		}
-
-
 		for(playerA in entityComponent.players) 
 		{
 			for(playerB in entityComponent.players) 
 			{
 				if(playerA != playerB && !playerA.isDead && !playerB.isDead)
 				{
-					var result = Collision.shapeWithShape(playerA.feet, playerB.body);
+					var result = Collision.shapeWithShape(playerA.feet, playerB.head);
 
 					if(result != null)
 					{
@@ -92,7 +90,7 @@ class BasicScene extends Scene
 			}
 		}
 
-		// debugRender();
+		debugRender();
 	}
 
 	function debugRender()
@@ -104,6 +102,8 @@ class BasicScene extends Scene
 
 		for(player in entityComponent.players) 
 		{
+			if(player.isDead) continue;
+			
 			graphics.begin(Color.RED, 0.1, 1, Color.GREEN);
 			drawPolygon(graphics, cast player.body);
 
