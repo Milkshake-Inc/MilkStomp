@@ -8,6 +8,6 @@ class Globals
 	public static inline var PLAYER_LEFT_SPEED = 0.5;
 	public static inline var PLAYER_RIGHT_SPEED = 0.5;
 
-	public static inline var GAME_WIDTH = 1920;
-	public static inline var GAME_HEIGHT = 1080;
+	public static inline var GAME_WIDTH = 1024;
+	public static inline var GAME_HEIGHT = 768;
 }

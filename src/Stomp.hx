@@ -14,6 +14,11 @@ class Stomp
 
 		milkshake.scenes.addScene(new BasicScene());
 		
-		SocketIo.connect("127.0.0.1");
+		var socket = SocketIo.connect("localhost:3000");
+		
+		socket.emit("data", {
+			"opcode": "joinRoom",
+			"roomType": "testRoom"
+		});
 	}
 }

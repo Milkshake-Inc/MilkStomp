@@ -18,14 +18,14 @@ module.exports = function (grunt)
 			{
 				options:
 				{
-					port: 8080,
+					port: 8181,
 					base: 'bin',
 					livereload: true,
 					debug: true,
 					hostname: "0.0.0.0",
 					open:
 					{
-						target: 'http://127.0.0.1:8080'
+						target: 'http://127.0.0.1:8181'
 					}            
 				}
 			}
@@ -34,7 +34,7 @@ module.exports = function (grunt)
 		open:
 		{
 			dev: {
-				path: 'http://localhost:8080/index.html'
+				path: 'http://localhost:8181/index.html'
 			}
 		},
 
